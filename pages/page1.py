@@ -19,13 +19,13 @@ dash.register_page(__name__, path='/')
 # ----------------------------------- Psycopg2 PostgreSQL driver Database Connection -----------------------------------
 
 # Optional
-conn = psycopg2.connect(
+'''conn = psycopg2.connect(
     dbname='public_xp5i',
     user='trial_user',
     password='TCeWMoXo1PoduKMsP5fb1P9Woo6Gx1Bb',
     host='dpg-ctqvvs52ng1s73eqfvng-a.singapore-postgres.render.com',
     port='5432',
-)
+)'''
 
 
 # IN-USE
