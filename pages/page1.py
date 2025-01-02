@@ -20,16 +20,16 @@ dash.register_page(__name__, path='/')
 
 # Optional
 conn = psycopg2.connect(
-    dbname='trial3',
-    user='postgres',
-    password='020921100961',
-    host='localhost',
+    dbname='public_xp5i',
+    user='trial_user',
+    password='TCeWMoXo1PoduKMsP5fb1P9Woo6Gx1Bb',
+    host='dpg-ctqvvs52ng1s73eqfvng-a.singapore-postgres.render.com',
     port='5432',
 )
 
 
 # IN-USE
-query_conn = 'postgresql://trial_user:TCeWMoXo1PoduKMsP5fb1P9Woo6Gx1Bb@dpg-ctqvvs52ng1s73eqfvng-a.singapore-postgres.render.com:5432/public_xp5i'
+query_conn = 'postgresql://trial_user:TCeWMoXo1PoduKMsP5fb1P9Woo6Gx1Bb@dpg-ctqvvs52ng1s73eqfvng-a.singapore-postgres.render.com/public_xp5i'
 
 
 # --------------------------------------------- Definitions: Use for table ---------------------------------------------
