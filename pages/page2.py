@@ -358,6 +358,7 @@ def update_upper_graph(value):
 
     elif value == 'ph_fda':
         call_head = "select distinct(importer) as License_Holders, count(*) as Number_of_Products_Registered from "
+        call_tail = " group by importer order by importer asc;"
         fig1 = replace_chart_with_table(call_head, value, call_tail, query_conn)
         fig2 = update_bar_chart(query.ph_fda_bar_chart, query_conn)
         return fig1, fig2

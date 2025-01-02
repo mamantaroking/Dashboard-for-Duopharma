@@ -29,9 +29,7 @@ conn = psycopg2.connect(
 
 
 # IN-USE
-query_conn = 'postgresql+psycopg2://postgres:020921100961@localhost:5432/trial3'
-# query_conn = 'postgresql://dash_databse_postgres_user:UqrYMy14MaKSx4z65PkqtcpjRMXf1O6D@dpg-ct6hd7ilqhvc73aklbv0-a.singapore-postgres.render.com/trial1_aif8'
-
+query_conn = 'postgresql://trial_user:TCeWMoXo1PoduKMsP5fb1P9Woo6Gx1Bb@dpg-ctqvvs52ng1s73eqfvng-a.singapore-postgres.render.com:5432/public_xp5i'
 
 
 # --------------------------------------------- Definitions: Use for table ---------------------------------------------
@@ -670,24 +668,26 @@ def download_btn(click, month_n_year, table):
 def update_count_table(table, month_n_year):
     # The start of a query call - used with other calls to complete a query sentence
     call_head = "select distinct(license_holder) as License_Holders, count(*) as Number_of_Products_Registered from "
-    call_ph = "select distinct(importer) as License_Holders, count(*) as Number_of_Products_Registered from "
+    call_end = 'group by license_holder;'
+    ph_head = "select distinct(importer) as License_Holders, count(*) as Number_of_Products_Registered from "
+    ph_end = 'group by importer;'
 
     if month_n_year == 'November 2024':
         # The end of a query call - the final piece to complete a query sentence
-        call_tail = " where date_of_issuance >= '2024-11-01' and date_of_issuance <= '2024-11-30' group by license_holder;"
+        call_tail = " where date_of_issuance >= '2024-11-01' and date_of_issuance <= '2024-11-30' "
 
         if table == 'npra':
             # Directly returns columns, row data, small table title, and pie chart
-            return give_pie_chart(call_head, table, call_tail, month_n_year, query_conn)
+            return give_pie_chart(call_head, table, call_tail + call_end, month_n_year, query_conn)
 
         elif table == 'hsa':
-            return give_pie_chart(call_head, table, call_tail, month_n_year, query_conn)
+            return give_pie_chart(call_head, table, call_tail + call_end, month_n_year, query_conn)
 
         elif table == 'bpom':
-            return give_pie_chart(call_head, table, call_tail, month_n_year, query_conn)
+            return give_pie_chart(call_head, table, call_tail + call_end, month_n_year, query_conn)
 
         elif table == 'ph_fda':
-            return give_pie_chart(call_ph, table, call_tail, month_n_year, query_conn)
+            return give_pie_chart(ph_head, table, call_tail + ph_end, month_n_year, query_conn)
 
         else:
             # Without using functions because the query is long
@@ -701,19 +701,20 @@ def update_count_table(table, month_n_year):
             return columnDefs, df.to_dict("records"), title, fig
 
     elif month_n_year == 'October 2024':
-        call_tail = " where date_of_issuance >= '2024-10-01' and date_of_issuance <= '2024-10-31' group by license_holder;"
+        call_tail = " where date_of_issuance >= '2024-10-01' and date_of_issuance <= '2024-10-31' "
 
         if table == 'npra':
-            return give_pie_chart(call_head, table, call_tail, month_n_year, query_conn)
+            # Directly returns columns, row data, small table title, and pie chart
+            return give_pie_chart(call_head, table, call_tail + call_end, month_n_year, query_conn)
 
         elif table == 'hsa':
-            return give_pie_chart(call_head, table, call_tail, month_n_year, query_conn)
+            return give_pie_chart(call_head, table, call_tail + call_end, month_n_year, query_conn)
 
         elif table == 'bpom':
-            return give_pie_chart(call_head, table, call_tail, month_n_year, query_conn)
+            return give_pie_chart(call_head, table, call_tail + call_end, month_n_year, query_conn)
 
         elif table == 'ph_fda':
-            return give_pie_chart(call_ph, table, call_tail, month_n_year, query_conn)
+            return give_pie_chart(ph_head, table, call_tail + ph_end, month_n_year, query_conn)
 
         else:
             call_tail = " where date_of_issuance >= '2024-10-01' and date_of_issuance <= '2024-10-30'"
@@ -724,19 +725,20 @@ def update_count_table(table, month_n_year):
             return columnDefs, df.to_dict("records"), title, fig
 
     elif month_n_year == 'September 2024':
-        call_tail = " where date_of_issuance >= '2024-09-01' and date_of_issuance <= '2024-09-30' group by license_holder;"
+        call_tail = " where date_of_issuance >= '2024-09-01' and date_of_issuance <= '2024-09-30' "
 
         if table == 'npra':
-            return give_pie_chart(call_head, table, call_tail, month_n_year, query_conn)
+            # Directly returns columns, row data, small table title, and pie chart
+            return give_pie_chart(call_head, table, call_tail + call_end, month_n_year, query_conn)
 
         elif table == 'hsa':
-            return give_pie_chart(call_head, table, call_tail, month_n_year, query_conn)
+            return give_pie_chart(call_head, table, call_tail + call_end, month_n_year, query_conn)
 
         elif table == 'bpom':
-            return give_pie_chart(call_head, table, call_tail, month_n_year, query_conn)
+            return give_pie_chart(call_head, table, call_tail + call_end, month_n_year, query_conn)
 
         elif table == 'ph_fda':
-            return give_pie_chart(call_ph, table, call_tail, month_n_year, query_conn)
+            return give_pie_chart(ph_head, table, call_tail + ph_end, month_n_year, query_conn)
 
         else:
             call_tail = " where date_of_issuance >= '2024-09-01' and date_of_issuance <= '2024-09-30'"
@@ -747,19 +749,20 @@ def update_count_table(table, month_n_year):
             return columnDefs, df.to_dict("records"), title, fig
 
     elif month_n_year == 'August 2024':
-        call_tail = " where date_of_issuance >= '2024-08-01' and date_of_issuance <= '2024-08-31' group by license_holder;"
+        call_tail = " where date_of_issuance >= '2024-08-01' and date_of_issuance <= '2024-08-31' "
 
         if table == 'npra':
-            return give_pie_chart(call_head, table, call_tail, month_n_year, query_conn)
+            # Directly returns columns, row data, small table title, and pie chart
+            return give_pie_chart(call_head, table, call_tail + call_end, month_n_year, query_conn)
 
         elif table == 'hsa':
-            return give_pie_chart(call_head, table, call_tail, month_n_year, query_conn)
+            return give_pie_chart(call_head, table, call_tail + call_end, month_n_year, query_conn)
 
         elif table == 'bpom':
-            return give_pie_chart(call_head, table, call_tail, month_n_year, query_conn)
+            return give_pie_chart(call_head, table, call_tail + call_end, month_n_year, query_conn)
 
         elif table == 'ph_fda':
-            return give_pie_chart(call_ph, table, call_tail, month_n_year, query_conn)
+            return give_pie_chart(ph_head, table, call_tail + ph_end, month_n_year, query_conn)
 
         else:
             call_tail = " where date_of_issuance >= '2024-08-01' and date_of_issuance <= '2024-08-30'"
@@ -770,19 +773,20 @@ def update_count_table(table, month_n_year):
             return columnDefs, df.to_dict("records"), title, fig
 
     elif month_n_year == 'July 2024':
-        call_tail = " where date_of_issuance >= '2024-07-01' and date_of_issuance <= '2024-07-31' group by license_holder;"
+        call_tail = " where date_of_issuance >= '2024-07-01' and date_of_issuance <= '2024-07-31' "
 
         if table == 'npra':
-            return give_pie_chart(call_head, table, call_tail, month_n_year, query_conn)
+            # Directly returns columns, row data, small table title, and pie chart
+            return give_pie_chart(call_head, table, call_tail + call_end, month_n_year, query_conn)
 
         elif table == 'hsa':
-            return give_pie_chart(call_head, table, call_tail, month_n_year, query_conn)
+            return give_pie_chart(call_head, table, call_tail + call_end, month_n_year, query_conn)
 
         elif table == 'bpom':
-            return give_pie_chart(call_head, table, call_tail, month_n_year, query_conn)
+            return give_pie_chart(call_head, table, call_tail + call_end, month_n_year, query_conn)
 
         elif table == 'ph_fda':
-            return give_pie_chart(call_ph, table, call_tail, month_n_year, query_conn)
+            return give_pie_chart(ph_head, table, call_tail + ph_end, month_n_year, query_conn)
 
         else:
             call_tail = " where date_of_issuance >= '2024-07-01' and date_of_issuance <= '2024-07-30'"
@@ -793,19 +797,20 @@ def update_count_table(table, month_n_year):
             return columnDefs, df.to_dict("records"), title, fig
 
     elif month_n_year == 'June 2024':
-        call_tail = " where date_of_issuance >= '2024-06-01' and date_of_issuance <= '2024-06-30' group by license_holder;"
+        call_tail = " where date_of_issuance >= '2024-06-01' and date_of_issuance <= '2024-06-30' "
 
         if table == 'npra':
-            return give_pie_chart(call_head, table, call_tail, month_n_year, query_conn)
+            # Directly returns columns, row data, small table title, and pie chart
+            return give_pie_chart(call_head, table, call_tail + call_end, month_n_year, query_conn)
 
         elif table == 'hsa':
-            return give_pie_chart(call_head, table, call_tail, month_n_year, query_conn)
+            return give_pie_chart(call_head, table, call_tail + call_end, month_n_year, query_conn)
 
         elif table == 'bpom':
-            return give_pie_chart(call_head, table, call_tail, month_n_year, query_conn)
+            return give_pie_chart(call_head, table, call_tail + call_end, month_n_year, query_conn)
 
         elif table == 'ph_fda':
-            return give_pie_chart(call_ph, table, call_tail, month_n_year, query_conn)
+            return give_pie_chart(ph_head, table, call_tail + ph_end, month_n_year, query_conn)
 
         else:
             call_tail = " where date_of_issuance >= '2024-06-01' and date_of_issuance <= '2024-06-30'"
